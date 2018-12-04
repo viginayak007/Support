@@ -1,0 +1,17 @@
+
+#signin {
+    padding-top: 80px;
+}
+
+.modal-lg {
+    max-width: 90% !important;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    /* adjust line height to align vertically*/
+    padding: 0;
+    border-radius: 50%;
+}
