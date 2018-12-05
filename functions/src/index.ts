@@ -1,30 +1,31 @@
-import * as functions from 'firebase-functions';
+//express
+import express = require('express');
+
+//middleware
+import cors = require('cors');
+import * as bodyParser from "body-parser";
+
+import * as test from "./api/test"
+
+//firebase
+import * as functions from "firebase-functions";
 import * as admin from 'firebase-admin';
 admin.initializeApp();
-
 const db = admin.firestore();
-db.settings({ timestampsInSnapshots: true });
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-export const getTicket = functions.https.onRequest((request, response) => {
-    if(request.method === 'GET'){
-        if (request.query.ticket_id){
-            db.doc(`test\${request.query.ticket_id}`).get()
-            .then(snapshot => {
-                const data = snapshot.data();
-                response.send(data);
-            })
-            .catch(error => {
-                console.log(error);
-                response.status(500).send(error)
-            })
-        }else{
-            response.sendStatus(400).send({ 'Error': 'Method accespts ticket_id as paramter' })
-        }
-        
-    }else{
-        response.sendStatus(400).send({'Error': 'Only GET Request is accepted'})
-    }
-  
+
+const app = express()
+
+app.use(cors({ origin: true }));
+app.use(bodyParser.json());
+app.use((err, req, res, next) => {
+    res.status(400).json({
+        error: err.message
+    });
 });
+app.use("/test", test.testRouter);
+
+app.get("*", async (req: express.Request, res: express.Response) => {
+    res.status(404).send("This route does not exist.");
+});
+
+exports.api = functions.https.onRequest(app);
