@@ -8,9 +8,10 @@ export const createTest = (test) => {
             userId: userId,
             createdAt: new Date()
         }).then(() => {
-            dispatch({ type: 'CREATE_PROJECT_SUCCESS' });
+            console.log('CREATE_TICEKT_Scuces')
+            dispatch({ type: 'CREATE_TICKET_SUCCESS' });
         }).catch(err => {
-            dispatch({ type: 'CREATE_PROJECT_ERROR' }, err);
+            dispatch({ type: 'CREATE_TICEKT_ERROR' }, err);
         });
         
     }
