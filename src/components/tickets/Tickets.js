@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
+import { getTest } from '../../store/actions/ticketActions';
+import { connect } from 'react-redux';
+// import { compose } from 'redux'
+
 
 class Tickets extends Component {
+    componentWillMount() {
+        this.props.getTest();
+    }
+    state = {
+        tickets: []
+    }
+    handleGetTickets = (e) => {
+        this.props.getTest();
+    }
     render() {
         return (
             <div className="container">
@@ -24,36 +37,9 @@ class Tickets extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>10/11/2018</td>
-                                    <td>Juliet</td>
-                                    <td>Shades</td>
-                                    <td>Test</td>
-                                    <td>Service Request</td>
-                                    <td>Need to add the user</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>10/11/2018</td>
-                                    <td>Open</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>10/11/2018</td>
-                                    <td>Juliet</td>
-                                    <td>Shades</td>
-                                    <td>Test</td>
-                                    <td>Service Request</td>
-                                    <td>Need to add the user</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>10/11/2018</td>
-                                    <td>Open</td>
-                                </tr>
+                               
+                                
                             </tbody>
-                            
                         </table>
                     </div>
                 </div>
@@ -62,4 +48,16 @@ class Tickets extends Component {
     }
 }
 
-export default Tickets;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        tickets: state.ticket
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getTest: () => dispatch(getTest())
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Tickets)
