@@ -8,7 +8,6 @@ export const createTest = (test) => {
             userId: userId,
             createdAt: new Date()
         }).then(() => {
-            console.log('CREATE_TICEKT_Scuces')
             dispatch({ type: 'CREATE_TICKET_SUCCESS' });
         }).catch(err => {
             dispatch({ type: 'CREATE_TICEKT_ERROR' }, err);
@@ -17,17 +16,25 @@ export const createTest = (test) => {
     }
 };
 
-export const getTest = (project) => {
+export const getTickets = (project) => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore();
         // const profile = getState().firebase.profile;
         // const authorId = getState().firebase.auth.uid;
-        firestore.collection('test').where("status", "==", 1).get().then((querySnapshot) => {
+        return firestore.collection('test').where("status", "==", 0).get().then((querySnapshot) => {
+            let tickets = [];
             querySnapshot.forEach((doc) => {
-                // console.log(doc.id, " => ", doc.data());
+                let ticket={};
+                ticket = { ...doc.data(), id: doc.id }
+                tickets.push(ticket);
             });
+            console.log(tickets);
+            return Promise.all(tickets);
         }).catch(err => {
-            dispatch({ type: 'CREATE_TEST_ERROR' }, err);
-        });
+            dispatch({ type: 'GET_TICKET_ERROR' , err });
+        }).then((tickets) => {
+            dispatch({ type: 'GET_TICKET_SUCCESS' , tickets });
+        })
     }
 };
+

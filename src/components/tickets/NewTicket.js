@@ -12,6 +12,7 @@ class NewTicket extends Component {
         location: 1,
         assign: 1,
         approval: 0,
+        status:0,
         applications: 1,
 
     }
@@ -126,6 +127,14 @@ class NewTicket extends Component {
                                         <label htmlFor="type" className="col-form-label-sm">Application</label>
                                         <select className="form-control form-control-sm" id="application" value={this.state.application} onChange={this.handleChangeParseInt} required>
                                             <option>IT Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                    <div className="form-group">
+                                        <label htmlFor="status" className="col-form-label-sm">Status</label>
+                                        <select className="form-control form-control-sm" id="status" value={this.state.status} readOnly>
+                                            <option value="0">Open</option>
                                         </select>
                                     </div>
                                 </div>

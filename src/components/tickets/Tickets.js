@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import { getTest } from '../../store/actions/ticketActions';
+import { getTickets } from '../../store/actions/ticketActions';
 import { connect } from 'react-redux';
 // import { compose } from 'redux'
+import TicketTD from './TicketTD';
 
 
 class Tickets extends Component {
     componentWillMount() {
-        this.props.getTest();
+        this.props.getTickets();
     }
-    state = {
-        tickets: []
-    }
-    handleGetTickets = (e) => {
-        this.props.getTest();
-    }
+    
     render() {
+        const { tickets }  = this.props;
+        console.log() 
         return (
             <div className="container">
                 <div className="row">
@@ -24,8 +22,7 @@ class Tickets extends Component {
                                 <tr>
                                     <th>ID</th>
                                     <th>Date</th>
-                                    <th>Company</th>
-                                    <th>Divison</th>
+                                    <th>Organization</th>
                                     <th>User</th>
                                     <th>Type</th>
                                     <th>Description</th>
@@ -37,7 +34,11 @@ class Tickets extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                               
+                                { tickets && tickets.map(ticket => {
+                                    return (
+                                        <TicketTD key={ticket.id} ticket={ticket}/>
+                                    )
+                                })}
                                 
                             </tbody>
                         </table>
@@ -51,13 +52,13 @@ class Tickets extends Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        tickets: state.ticket
+        tickets: state.ticket.tickets
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTest: () => dispatch(getTest())
+        getTickets: () => dispatch(getTickets())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Tickets)
