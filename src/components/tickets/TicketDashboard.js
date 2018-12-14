@@ -32,7 +32,7 @@ class TicketDashboard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        tickets: state.ticket.tickets
+        auth: state.auth
     }
 }
 

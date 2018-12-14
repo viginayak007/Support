@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AdminTab from './AdminTab';
-import Users from './Users';
-import Groups from './Groups';
-import Permissions from './Permissions';
+import Users from './user/Users';
+import Groups from './group/Groups';
+import Organization from './organization/Organizations';
 import { withRouter } from "react-router";
 import { Redirect } from 'react-router-dom';
 import { Route } from 'react-router-dom';
@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 class AdminDashboard extends Component {
     render() {
         const path = this.props.history.location.pathname;
-        if (this.props.history.location.pathname === '/admin') return <Redirect to='/admin/users' />;
+        if (this.props.history.location.pathname === '/dashboard/admin') return <Redirect to='/dashboard/admin/users' />;
         return (
             <div className="container">
                 <div className="row">
@@ -20,9 +20,9 @@ class AdminDashboard extends Component {
                         <AdminTab path={ path }/>
                     </div>
                     <div className="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <Route path="/dashboard/admin" component={Users} />
+                        <Route path="/dashboard/admin/users" component={Users} />
                         <Route path="/dashboard/admin/groups" component={Groups} /> 
-                        <Route path="/dashboard/admin/permissions" component={Permissions} />     
+                        <Route path="/dashboard/admin/organization" component={Organization} />     
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@ class AdminDashboard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        tickets: state.ticket.tickets
+        auth: state.auth
     }
 }
 

@@ -2,16 +2,17 @@
 import React from 'react'
 import moment from 'moment'
 
-const TicketTD = (ticket) => {
+const TicketTD = (key, ticket) => {
   return (
-    <tr>
-        <td></td>
-        <td>{ ticket }</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-    </tr>
+    console.log(ticket)
+    // <tr>
+    //     <td></td>
+    //     <td>{ ticket.id }</td>
+    //     <td></td>
+    //     <td></td>
+    //     <td></td>
+    //     <td></td>
+    // </tr>
   )
 }
 

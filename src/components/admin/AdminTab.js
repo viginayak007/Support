@@ -5,13 +5,13 @@ const AdminTab = (props) => {
     return (
         <ul className="nav nav-tabs" id="myTab" role="tablist">
             <li className="nav-item">
-                <Link className={ "nav-link " + (props.path === "/admin/users" ?"active" : "") } to="dashboard/admin/users">Users</Link>
+                <Link className={ "nav-link " + (props.path === "/dashboard/admin/users" ?"active" : "") } to="/dashboard/admin/users">Users</Link>
             </li>
             <li className="nav-item">
-                <Link className={"nav-link " + (props.path === "/admin/groups" ? "active" : "")} to="dashboard/admin/groups">Groups</Link>
+                <Link className={"nav-link " + (props.path === "/dashboard/admin/groups" ? "active" : "")} to="/dashboard/admin/groups">Groups</Link>
             </li>
             <li className="nav-item">
-                <Link className={"nav-link " + (props.path === "/admin/permissions" ? "active" : "")} to="dashboard/admin/permissions">Permissions</Link>
+                <Link className={"nav-link " + (props.path === "/dashboard/admin/orginization" ? "active" : "")} to="/dashboard/admin/orginization">Orginization</Link>
             </li>
         </ul>
     )

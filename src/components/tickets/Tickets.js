@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { getTickets } from '../../store/actions/ticketActions';
 import { connect } from 'react-redux';
 // import { compose } from 'redux'
-import TicketTD from './TicketTD';
+// import TicketTD from './TicketTD';
+import moment from 'moment'
 
 
 class Tickets extends Component {
@@ -12,7 +13,6 @@ class Tickets extends Component {
     
     render() {
         const { tickets }  = this.props;
-        console.log() 
         return (
             <div className="container">
                 <div className="row">
@@ -25,7 +25,7 @@ class Tickets extends Component {
                                     <th>Organization</th>
                                     <th>User</th>
                                     <th>Type</th>
-                                    <th>Description</th>
+                                    <th>Subject</th>
                                     <th>Urgency</th>
                                     <th>Impact</th>
                                     <th>Priority</th>
@@ -34,10 +34,22 @@ class Tickets extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                { tickets && tickets.map(ticket => {
-                                    return (
-                                        <TicketTD key={ticket.id} ticket={ticket}/>
-                                    )
+                                { tickets && tickets.map((ticket, i) => {
+                                   return (
+                                            <tr key={i}>
+                                                <td>{ i }</td>
+                                                <td>{ moment(ticket.createdAt.toDate()).calendar() }</td>
+                                                <td>{ ticket.originzation }</td>
+                                                <td>{ ticket.userId }</td>
+                                                <td>{ }</td>
+                                                <td>{ ticket.description }</td>
+                                                <td>{ ticket.urgency }</td>
+                                                <td>{ ticket.impact }</td>
+                                                <td>{ ticket.priority }</td>
+                                                <td></td>
+
+                                            </tr>
+                                    );
                                 })}
                                 
                             </tbody>
@@ -52,7 +64,7 @@ class Tickets extends Component {
 const mapStateToProps = (state) => {
     console.log(state);
     return {
-        tickets: state.ticket.tickets
+        tickets: state.tickets.tickets
     }
 }
 

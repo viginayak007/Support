@@ -1,19 +1,24 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 
-import NewTicket from './NewTicket';
+import NewOrginization from './NewOrginization';
 
-const TicketInfo = (props) => {
+const OrginizationPanel = (props) => {
     return (
         <div className="container">
             <button type="button" className="btn pull-right btn-info btn-sm" data-toggle="modal" data-target="#NewTicket">
                 New
             </button>
             <div>
-                <NewTicket />
+                <NewOrginization />
             </div>
         </div>
-    )
+                
+
+
+
+
+                )
 }
 
-export default TicketInfo;
+export default OrginizationPanel;

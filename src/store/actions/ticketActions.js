@@ -1,4 +1,4 @@
-export const createTest = (test) => {
+export const createTicket = (Ticket) => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore();
         // const profile = getState().firebase.profile;
@@ -28,7 +28,6 @@ export const getTickets = (project) => {
                 ticket = { ...doc.data(), id: doc.id }
                 tickets.push(ticket);
             });
-            console.log(tickets);
             return Promise.all(tickets);
         }).catch(err => {
             dispatch({ type: 'GET_TICKET_ERROR' , err });

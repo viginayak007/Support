@@ -25,7 +25,6 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
     return{
         auth: state.firebase.auth,
-        tickets: state.ticket.tickets
     }
 }
 

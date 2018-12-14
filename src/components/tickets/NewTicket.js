@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux'; 
-import { createTest } from '../../store/actions/ticketActions';
+import { createTicket } from '../../store/actions/ticketActions';
 
 class NewTicket extends Component {
     state = {
@@ -46,7 +46,7 @@ class NewTicket extends Component {
 
                         <div className="modal-body">
                             <div className="row">
-                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
                                         <label htmlFor="id" className="col-form-label-sm">ID</label>
                                         <input type="text" className="form-control form-control-sm" value="0" id="id" disabled />
@@ -60,7 +60,7 @@ class NewTicket extends Component {
                                         <input className="form-control form-control-sm" type="text" id="date" value={ new Date() } disabled/>
                                     </div>
                                 </div>
-                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
                                         <label htmlFor="urgency" className="col-form-label-sm">Urgency</label>
                                         <select className="form-control form-control-sm" id="urgency" value={this.state.urgency} onChange={ this.handleChangeParseInt }>
@@ -89,7 +89,7 @@ class NewTicket extends Component {
                                     </div>
                                     
                                 </div>
-                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
                                         <label htmlFor="originzation" className="col-form-label-sm">Originzation</label>
                                         <select className="form-control form-control-sm" id="originzation" value={this.state.originzation} onChange={this.handleChangeParseInt} required>
@@ -110,7 +110,7 @@ class NewTicket extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
                                         <label htmlFor="type" className="col-form-label-sm">Approval</label>
                                         <select className="form-control form-control-sm" id="approval" value={this.state.approval} onChange={this.handleChangeParseInt}>
@@ -130,12 +130,18 @@ class NewTicket extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-sm-6 col-md-3 col-lg-3">
+                                <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
                                         <label htmlFor="status" className="col-form-label-sm">Status</label>
                                         <select className="form-control form-control-sm" id="status" value={this.state.status} readOnly>
                                             <option value="0">Open</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div className="col-sm-12 col-md-12 col-lg-12">
+                                    <div className="form-group">
+                                        <label htmlFor="description" className="col-form-label-sm">Subject</label>
+                                        <textarea className="form-control form-control-sm" rows="2" id="subject" onChange={this.handleChange} required></textarea>
                                     </div>
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12">
@@ -165,13 +171,12 @@ class NewTicket extends Component {
 const mapStateToProps = (state) => {
     return {
         firebase: state.firebase.auth,
-        tickets: state.ticket.tickets
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createTest: (ticket) => dispatch(createTest(ticket))
+        createTicket: (ticket) => dispatch(createTicket(ticket))
     }
 }
 
