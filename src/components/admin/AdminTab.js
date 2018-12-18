@@ -11,7 +11,7 @@ const AdminTab = (props) => {
                 <Link className={"nav-link " + (props.path === "/dashboard/admin/groups" ? "active" : "")} to="/dashboard/admin/groups">Groups</Link>
             </li>
             <li className="nav-item">
-                <Link className={"nav-link " + (props.path === "/dashboard/admin/orginization" ? "active" : "")} to="/dashboard/admin/orginization">Orginization</Link>
+                <Link className={"nav-link " + (props.path === "/dashboard/admin/organizations" ? "active" : "")} to="/dashboard/admin/organizations">Organizations</Link>
             </li>
         </ul>
     )

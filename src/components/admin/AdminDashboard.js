@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AdminTab from './AdminTab';
 import Users from './user/Users';
 import Groups from './group/Groups';
-import Organization from './organization/Organizations';
+import Organizations from './organization/Organizations';
 import { withRouter } from "react-router";
 import { Redirect } from 'react-router-dom';
 import { Route } from 'react-router-dom';
@@ -22,7 +22,7 @@ class AdminDashboard extends Component {
                     <div className="col-lg-12 col-md-12 col-sm-12 mt-4">
                         <Route path="/dashboard/admin/users" component={Users} />
                         <Route path="/dashboard/admin/groups" component={Groups} /> 
-                        <Route path="/dashboard/admin/organization" component={Organization} />     
+                        <Route path="/dashboard/admin/organizations" component={Organizations} />     
                     </div>
                 </div>
             </div>

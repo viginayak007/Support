@@ -8,29 +8,62 @@ const initState = {
         console.log('signup success')
         return {
           ...state,
-          authError: null
+          createUserError: null
         }
-  
       case 'CREATE_USER_ERROR':
         console.log('signup error')
         return {
           ...state,
-          authError: action.err.message
+          createUserError: action.err.message
         }
-        case 'CREATE_GROUP_SUCCESS':
+      case 'CREATE_GROUP_SUCCESS':
         console.log('created group sucess')
         return {
           ...state,
-          authError: null
+          createGroupError: null
         }
-  
       case 'CREATE_GROUP_ERROR':
-        console.log('create group error')
+        console.log('create organization error')
         return {
           ...state,
-          authError: action.err.message
+          createGroupError: action.err.message
         }
-  
+      case 'GET_GROUPS_SUCCESS':
+        console.log('get groups success')
+        return {
+          ...state,
+          groups: action.groups
+        }
+      case 'GET_GROUPS_ERROR':
+        console.log('get groups error')
+        return {
+          ...state,
+          getGroupError: action.err.message
+        }
+      case 'CREATE_ORGANIZATION_SUCCESS':
+        console.log('create organization success')
+        return {
+          ...state,
+          organizations: action.organizations
+        }
+      case 'CREATE_ORGANIZATION_ERROR':
+        console.log('create organization error')
+        return {
+          ...state,
+          createOrganizationError: action.err.message
+        }
+      case 'GET_ORGANIZATION_SUCCESS':
+        console.log(' get organization success')
+        return {
+          ...state,
+          organizations: action.organizations
+        }
+      case 'GET_ORGANIZATION_ERROR':
+        console.log('get organization error')
+        return {
+          ...state,
+          getOrganizationError: action.err.message
+        }
       default:
         return state
     }

@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router";
-import { Redirect } from 'react-router-dom';
-import OrginizationInfoPanel from './OrginizationInfoPanel';
+import OrganizationInfoPanel from './OrganizationInfoPanel';
+import { getOrganizations } from './../../../store/actions/adminActions'; 
 import { connect } from 'react-redux';
 
-class Orignizations extends Component {
+class Organizations extends Component {
+    componentWillMount() {
+        this.props.getOrganizations();
+    }
     render() {
-        const path = this.props.history.location.pathname;
-        if (path === '/dashboard/admin') return <Redirect to='/dashboard/admin/users' />;
         return (
         <div className="container">
             <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <OrginizationInfoPanel />
+                    < OrganizationInfoPanel />
                 </div>
                 <div className="col-lg-12 col-md-12 col-sm-12 mt-4">
                     {/* <Route path="/dashboard/tickets" component={Tickets} /> */}
@@ -26,8 +26,14 @@ class Orignizations extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        admin: state.admin.organizations
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Orignizations));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getOrganizations: () => dispatch(getOrganizations())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Organizations);
