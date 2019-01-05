@@ -32,6 +32,7 @@ export const getTickets = (project) => {
         }).catch(err => {
             dispatch({ type: 'GET_TICKET_ERROR' , err });
         }).then((tickets) => {
+            tickets = tickets.length ? tickets : [];
             dispatch({ type: 'GET_TICKET_SUCCESS' , tickets });
         })
     }

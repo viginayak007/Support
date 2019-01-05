@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux'; 
-import { createUser } from '../../../store/actions/authActions';
+import { createUser } from '../../../store/actions/adminActions';
 
 class NewTicket extends Component {
     
@@ -16,7 +16,6 @@ class NewTicket extends Component {
         });
     }
     handleSubmit = (e) => {
-        console.log(this.state);
         e.preventDefault();
         e.stopPropagation();
         this.props.createUser(this.state);
@@ -34,10 +33,6 @@ class NewTicket extends Component {
                         <div className="modal-body">
                             <div className="row">
                                 <div className="col-sm-6 col-md-2 col-lg-2">
-                                    <div className="form-group">
-                                        <label htmlFor="id" className="col-form-label-sm">ID</label>
-                                        <input type="text" className="form-control form-control-sm" value="0" id="id" disabled />
-                                    </div>
                                     <div className="form-group">
                                         <label htmlFor="email" className="col-form-label-sm">Email</label>
                                         <input type="email" className="form-control form-control-sm" id="email" onChange={this.handleChange}/>

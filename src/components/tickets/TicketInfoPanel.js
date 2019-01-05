@@ -1,19 +1,31 @@
-import React from 'react';
-// import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import NewTicket from './NewTicket';
 
-const TicketInfo = (props) => {
-    return (
-        <div className="container">
-            <button type="button" className="btn pull-right btn-info btn-sm" data-toggle="modal" data-target="#NewTicket">
-                New
-            </button>
-            <div>
-                <NewTicket />
+class TicketInfo extends Component {
+    render() {
+        const permissions = this.props.permissions || false
+        return (
+            <div className="container">
+                { permissions && permissions.ticket.create.canCreate ? <div> 
+                        <button type="button" className="btn pull-right btn-info btn-sm" data-toggle="modal" data-target="#NewTicket">
+                            New
+                        </button>
+                        <div>
+                            <NewTicket />
+                        </div> 
+                    </div> : null 
+                }
+                
             </div>
-        </div>
-    )
+        )
+    }
 }
 
-export default TicketInfo;
+const mapStateToProps = (state) => {
+    return {
+        permissions: state.auth.permissions
+    }
+}
+export default connect(mapStateToProps)(TicketInfo);

@@ -11,10 +11,6 @@ class NewTicket extends Component {
         originzation:1,
         location: 1,
         assign: 1,
-        approval: 0,
-        status:0,
-        applications: 1,
-
     }
     handleChange = (e) => {
         this.setState({
@@ -27,11 +23,9 @@ class NewTicket extends Component {
         });
     }
     handleSubmit = (e) => {
-        console.log(this.state);
         e.preventDefault();
         e.stopPropagation();
         this.props.createTest(this.state);
-        // this.props.history.push('/');
     }
     render() {
         const { firebase } = this.props
@@ -48,16 +42,18 @@ class NewTicket extends Component {
                             <div className="row">
                                 <div className="col-sm-6 col-md-2 col-lg-2">
                                     <div className="form-group">
-                                        <label htmlFor="id" className="col-form-label-sm">ID</label>
-                                        <input type="text" className="form-control form-control-sm" value="0" id="id" disabled />
-                                    </div>
-                                    <div className="form-group">
                                         <label htmlFor="user" className="col-form-label-sm">User</label>
                                         <input type="text" className="form-control form-control-sm" id="user" value ={ firebase.email } disabled />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="date" className="col-form-label-sm">Date</label>
                                         <input className="form-control form-control-sm" type="text" id="date" value={ new Date() } disabled/>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="status" className="col-form-label-sm">Status</label>
+                                        <select className="form-control form-control-sm" id="status" value={this.state.status} readOnly>
+                                            <option value="0">Open</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="col-sm-6 col-md-2 col-lg-2">
@@ -130,14 +126,6 @@ class NewTicket extends Component {
                                         </select>
                                     </div>
                                 </div>
-                                <div className="col-sm-6 col-md-2 col-lg-2">
-                                    <div className="form-group">
-                                        <label htmlFor="status" className="col-form-label-sm">Status</label>
-                                        <select className="form-control form-control-sm" id="status" value={this.state.status} readOnly>
-                                            <option value="0">Open</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12">
                                     <div className="form-group">
                                         <label htmlFor="description" className="col-form-label-sm">Subject</label>
@@ -146,9 +134,8 @@ class NewTicket extends Component {
                                 </div>
                                 <div className="col-sm-12 col-md-12 col-lg-12">
                                     <div className="form-group">
-                                        <label htmlFor="description" className="col-form-label-sm">Description</label>
-                                        <textarea className="form-control form-control-sm" rows="20" id="description" onChange={this.handleChange} required></textarea>
-
+                                            <label htmlFor="description" className="col-form-label-sm">Description</label>
+                                            <textarea className="form-control form-control-sm" rows="20" id="description" onChange={this.handleChange} required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -171,6 +158,7 @@ class NewTicket extends Component {
 const mapStateToProps = (state) => {
     return {
         firebase: state.firebase.auth,
+        permissions: state.auth.permissions
     }
 }
 

@@ -21,7 +21,20 @@ const initState = {
       case 'SIGNOUT_SUCCESS':
         console.log('signout success');
         return state;
-  
+
+      case 'GET_PERMISSIONS_SUCCESS':
+        console.log('get permissions success')
+        return {
+          ...state,
+          permissions: action.permissions
+        }
+      case 'GET_PERMISSIONS_ERROR':
+        console.log('get permission error')
+        return {
+          ...state,
+          PermissionsError: action.err.message
+        }
+      
       default:
         return state
     }

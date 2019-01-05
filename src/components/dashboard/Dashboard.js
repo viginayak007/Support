@@ -6,9 +6,15 @@ import Navbar from './Navbar';
 import TicketDashboard from '../tickets/TicketDashboard';
 import AdminDashboard from '../admin/AdminDashboard';
 import { Redirect } from 'react-router-dom';
+import { getPermissions} from '../../store/actions/authActions'
 
 
 class Dashboard extends Component {
+    componentWillMount() {
+        if(this.props.auth.uid){
+            this.props.getPermissions();
+        }
+    }
     render(){
         if (! this.props.auth.uid) return <Redirect to='/signin' />;
         if (this.props.history.location.pathname === '/dashboard') return <Redirect to='/dashboard/tickets'/>;
@@ -28,4 +34,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPermissions: () => dispatch(getPermissions()),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

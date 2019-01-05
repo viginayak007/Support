@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { getTickets } from '../../store/actions/ticketActions';
 import { connect } from 'react-redux';
-// import { compose } from 'redux'
-// import TicketTD from './TicketTD';
 import ReactTable from "react-table";
 import 'react-table/react-table.css'
 import moment from 'moment'

@@ -1,5 +1,5 @@
 const initState = {
-    authError: null
+    adminError: null
   }
   
   const authReducer = (state = initState, action) => {
@@ -8,25 +8,37 @@ const initState = {
         console.log('signup success')
         return {
           ...state,
-          createUserError: null
+          adminError: null
         }
       case 'CREATE_USER_ERROR':
         console.log('signup error')
         return {
           ...state,
-          createUserError: action.err.message
+          adminError: action.err.message
         }
       case 'CREATE_GROUP_SUCCESS':
         console.log('created group sucess')
         return {
           ...state,
-          createGroupError: null
+          adminError: null
         }
       case 'CREATE_GROUP_ERROR':
         console.log('create organization error')
         return {
           ...state,
-          createGroupError: action.err.message
+          adminError: action.err.message
+        }
+        case 'GET_USERS_SUCCESS':
+        console.log('get users success')
+        return {
+          ...state,
+          users: action.users
+        }
+      case 'GET_USERS_ERROR':
+        console.log('get users error')
+        return {
+          ...state,
+          adminError: action.err.message
         }
       case 'GET_GROUPS_SUCCESS':
         console.log('get groups success')
@@ -38,7 +50,7 @@ const initState = {
         console.log('get groups error')
         return {
           ...state,
-          getGroupError: action.err.message
+          adminError: action.err.message
         }
       case 'CREATE_ORGANIZATION_SUCCESS':
         console.log('create organization success')
@@ -50,7 +62,7 @@ const initState = {
         console.log('create organization error')
         return {
           ...state,
-          createOrganizationError: action.err.message
+          adminError: action.err.message
         }
       case 'GET_ORGANIZATION_SUCCESS':
         console.log(' get organization success')
@@ -62,7 +74,31 @@ const initState = {
         console.log('get organization error')
         return {
           ...state,
-          getOrganizationError: action.err.message
+          adminError: action.err.message
+        }
+      case 'GET_RULE_SUCCESS':
+        console.log(' get rule success')
+        return {
+          ...state,
+          rules: action.rules
+        }
+      case 'GET_RULE_ERROR':
+        console.log('get rule error')
+        return {
+          ...state,
+          adminError: action.err.message
+        }
+        case 'GET_OPTIONS_SUCCESS':
+        console.log(' get options success')
+        return {
+          ...state,
+          options: action.options
+        }
+      case 'GET_OPTIONS_ERROR':
+        console.log('get options error')
+        return {
+          ...state,
+          adminError: action.err.message
         }
       default:
         return state

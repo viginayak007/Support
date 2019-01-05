@@ -24,23 +24,34 @@ export const signOut = () => {
     }
 }
 
-export const createUser = (newUser) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
-      const firebase = getFirebase();
-      const firestore = getFirestore();
-  
-      firebase.auth().createUserWithEmailAndPassword(
-        newUser.email, 
-        newUser.password
-      ).then(resp => {
-        return firestore.collection('users').doc(resp.user.uid).set({
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-        });
-      }).then(() => {
-        dispatch({ type: 'CREATE_USER_SUCCESS' });
-      }).catch((err) => {
-        dispatch({ type: 'CREATE_USER_ERROR', err});
-      });
+
+export const getPermissions = () => {
+    return (dispatch, getState, { getFirestore }) => {
+        const firestore = getFirestore();
+        const userId = getState().firebase.auth.uid;
+        return firestore.collection('groups').where("config.selectedUsers", "array-contains", {id :userId}).get().then((querySnapshot) => {
+            let groups =[];
+            querySnapshot.docs.forEach(doc => {
+                let group = {...doc.data().config, id: doc.id}
+                groups.push(group)
+            })    
+            return Promise.all(groups);
+        }).catch(err => {
+            console.log(err);
+            dispatch({ type: 'GET_PERMISSIONS_ERROR' , err });
+        }).then((groups) => {
+            const permissions = { ticket:{create: {canCreate:false}, priorities: {urgency:[],impact:[]}}}
+            groups.forEach(group => {
+                if(group.ticket){
+                    if(group.ticket.create){
+                        if(group.ticket.create.canCreate){
+                            permissions.ticket.create.canCreate = true
+                        }
+                    }
+                }
+            })
+            dispatch({ type: 'GET_PERMISSIONS_SUCCESS' , permissions });
+            
+        })
     }
-  }
+};

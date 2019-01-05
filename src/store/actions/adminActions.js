@@ -1,11 +1,55 @@
-export const createGroup = (Group) => {
+
+export const createUser = (newUser) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+      const firebase = getFirebase();
+      const firestore = getFirestore();
+  
+      firebase.auth().createUserWithEmailAndPassword(
+        newUser.email, 
+        newUser.password
+      ).then(resp => {
+    
+        return firestore.collection('users').doc(resp.user.uid).set({
+            email: newUser.email,
+            firstName: newUser.firstName,
+            lastName: newUser.lastName,
+        });
+      }).then(() => {
+        dispatch({ type: 'CREATE_USER_SUCCESS' });
+      }).catch((err) => {
+        dispatch({ type: 'CREATE_USER_ERROR', err});
+      });
+    }
+  }
+export const getUsers = () => {
+    return (dispatch, getState, { getFirestore }) => {
+        const firestore = getFirestore();
+        // const profile = getState().firebase.profile;
+        // const authorId = getState().firebase.auth.uid;
+        return firestore.collection('users').get().then((querySnapshot) => {
+            let users = [];
+            querySnapshot.forEach((doc) => {
+                let user={};
+                user = { ...doc.data(), id: doc.id }
+                users.push(user);
+            });
+            return Promise.all(users);
+        }).catch(err => {
+            dispatch({ type: 'GET_USERS_ERROR' , err });
+        }).then((users) => {
+            dispatch({ type: 'GET_USERS_SUCCESS' , users });
+        })
+    }
+};
+
+export const createGroup = (group) => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore();
         // const profile = getState().firebase.profile;
         const userId = getState().firebase.auth.uid;
-        firestore.collection('group').add({
-            ...test,
-            userId: userId,
+        firestore.collection('groups').add({
+            ...group,
+            createdBy: userId,
             createdAt: new Date()
         }).then(() => {
             dispatch({ type: 'CREATE_GROUP_SUCCESS' });
@@ -53,7 +97,7 @@ export const createOrganization = (organization) => {
         
     }
 };
-export const getOrganizations = (project) => {
+export const getOrganizations = () => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore();
         // const profile = getState().firebase.profile;
@@ -74,3 +118,28 @@ export const getOrganizations = (project) => {
         })
     }
 };
+
+export const getOptions = (doc) => {
+    return (dispatch, getState, { getFirestore }) => {
+        const firestore = getFirestore();
+        // const profile = getState().firebase.profile;
+        // const authorId = getState().firebase.auth.uid;
+        console.log(getState.parentID)
+        return firestore.collection('options').doc(doc).get().then((documnetSnapshot) => {
+            console.log(documnetSnapshot.data());
+            let options = {};
+            if (documnetSnapshot.exists) {
+                options[doc]= documnetSnapshot.data();
+                return options;
+            } else {
+                options[doc]= {};
+            }
+            
+        }).catch(err => {
+            dispatch({ type: 'GET_OPTIONS_ERROR' , err });
+        }).then((options) => {
+            dispatch({ type: 'GET_OPTIONS_SUCCESS' , options });
+        })
+    }
+};
+
